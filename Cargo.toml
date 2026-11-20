@@ -1,0 +1,8 @@
+[package]
+name = "axios_translator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+regex = "1.11"      # Permitido ÚNICAMENTE dentro de src/frontend/normalizer.rs
+rusqlite = { version = "0.32", features = ["bundled"] } # Para el Integrante 1
