@@ -1,0 +1,5 @@
+# deducciones_equipo.txt · reglas que el manual no dice y el equipo dedujo de las señales
+# Cada una esta justificada en docs/bitacora.md.
+# DEDUCCION|lengua|regla|posicion|forma|evidencia
+DEDUCCION|kethari|NUMBER_BASE||6|ra-sel = 2·6+3 = 15 (dia 3); ti-vo = 1·6+0 = 6 (dia 7); mok-ra = 4·6+2 = 26 (dia 10)
+DEDUCCION|ozh|NUMBER|BEFORE_NOUN|*|ois-ulo gor (dia 3); sab drüm (dia 7)
