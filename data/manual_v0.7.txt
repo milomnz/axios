@@ -1,0 +1,79 @@
+# manual_v0.7.txt · Axios · manual version 0.7
+# Transcripcion de las secciones 3.1 a 3.5 del manual. Varias formas se separan con coma.
+# LEXICO|categoria|clave|español|kethari|ozh|nota
+# NUMERO|valor|kethari|ozh
+# REGLA|lengua|regla|posicion|forma|nota
+
+# 3.1 Lexico conocido
+LEXICO|PRONOUN|YO|yo|an|ʔen|
+LEXICO|PRONOUN|TU|tu,usted|ul|sha|
+LEXICO|PRONOUN|EL|el,ella|ir|oru|
+LEXICO|PRONOUN|NOSOTROS|nosotros|anul,anir|ʔenka|El decodificador traduce anul y anir como "nosotros"; linguistica no cree que sean sinonimos (3.5)
+LEXICO|PRONOUN|USTEDES|ustedes|ulesh|shavi|
+LEXICO|PRONOUN|ELLOS|ellos,ellas|iresh|oruvi|
+LEXICO|NOUN|PLANETA|planeta,mundo|vael|thüm|Kethari: vael aparece cuando se habla de mundos enteros (3.5)
+LEXICO|NOUN|ESTRELLA|estrella|sorin|ral|
+LEXICO|NOUN|TIERRA|tierra|teka|mak|Kethari: teka aparece en señales sobre el suelo y sobre lugares (3.5)
+LEXICO|NOUN|AGUA|agua|dahl|naʔ|
+LEXICO|NOUN|NAVE|nave|kum|gor|
+LEXICO|NOUN|MENSAJE|mensaje|ombra|vesh|
+LEXICO|NOUN|PAZ|paz|parn|ilu|
+LEXICO|NOUN|CICLO|ciclo|lun|drüm|
+LEXICO|NOUN|ANIO|año|sorlun|drümak|
+LEXICO|NOUN|LUZ|luz|zett|osk|
+LEXICO|NOUN|CRIATURA|criatura,ser vivo|yorr|fen|
+LEXICO|NOUN|HOGAR|hogar|hosk|beth|
+LEXICO|VERB|VENIR|venir,llegar|vin|sur|
+LEXICO|VERB|ENVIAR|enviar|sal|dra|
+LEXICO|VERB|VER|ver|kor|ʔim|
+LEXICO|VERB|QUERER|querer|thal|lom|
+LEXICO|VERB|SER|ser,estar|mi|ha|
+LEXICO|VERB|HABLAR|hablar|lar|tal|
+LEXICO|VERB|ESCUCHAR|escuchar|rhu|nem|
+LEXICO|VERB|ESPERAR|esperar|tep|bo|
+LEXICO|VERB|VISITAR|visitar|dun|kesh|
+LEXICO|INTERROGATIVE|QUE|que|kel|wu|
+LEXICO|INTERROGATIVE|CUANDO|cuando|kom|wem|
+LEXICO|INTERROGATIVE|DONDE|donde|dor|wor|
+LEXICO|INTERROGATIVE|CUANTOS|cuantos|kai|wak|
+LEXICO|INTERROGATIVE|QUIEN|quien|sem|wis|
+
+# 3.2 Numeros (Kethari no tiene palabras para 6, 7, 8 ni 9)
+NUMERO|0|vo|zu
+NUMERO|1|ti|ois
+NUMERO|2|ra|dav
+NUMERO|3|sel|kru
+NUMERO|4|mok|fem
+NUMERO|5|pai|ulo
+NUMERO|6||sab
+NUMERO|7||nir
+NUMERO|8||tok
+NUMERO|9||hev
+REGLA|kethari|NUMBER_SEPARATOR||-|Las cifras se encadenan con guiones (3.2)
+REGLA|ozh|NUMBER_SEPARATOR||-|Las cifras se encadenan con guiones (3.2)
+REGLA|ozh|NUMBER_BASE||10|ois-ulo es quince (3.2)
+
+# 3.3 Gramatica de Kethari
+REGLA|kethari|WORD_ORDER||SOV|Sujeto, objeto, verbo (3.3.1)
+REGLA|kethari|SUBJECT_REQUIRED||si|El sujeto aparece siempre (3.3.2)
+REGLA|kethari|PAST|SUFFIX|ok|(3.3.3)
+REGLA|kethari|FUTURE|SUFFIX|ime|(3.3.3)
+REGLA|kethari|NEGATION|PREFIX|nu|En el verbo (3.3.4)
+REGLA|kethari|PLURAL|SUFFIX|esh|Tambien cuando van con un numero (3.3.5)
+REGLA|kethari|NUMBER|BEFORE_NOUN|*|(3.3.6)
+REGLA|kethari|QUESTION|SENTENCE_END|ka|(3.3.7)
+REGLA|kethari|INTERROGATIVE|SENTENCE_START|*|(3.3.7)
+REGLA|kethari|POSSESSOR|BEFORE_NOUN|*|ul vael = tu planeta (3.3.8)
+
+# 3.4 Gramatica de Ozh
+REGLA|ozh|WORD_ORDER||VSO|Verbo, sujeto, objeto (3.4.1)
+REGLA|ozh|EVIDENTIAL|AFTER_VERB|zi|lo vimos (3.4.2)
+REGLA|ozh|EVIDENTIAL|AFTER_VERB|mar|nos lo dijeron (3.4.2)
+REGLA|ozh|EVIDENTIAL|AFTER_VERB|tho|lo deducimos (3.4.2)
+REGLA|ozh|PAST|SENTENCE_START|ʔoka|antes (3.4.3)
+REGLA|ozh|FUTURE|SENTENCE_START|venu|despues (3.4.3)
+REGLA|ozh|NEGATION|BEFORE_VERB|ne|(3.4.4)
+REGLA|ozh|QUESTION|PREFIX|ʔa|En el verbo (3.4.6)
+REGLA|ozh|INTERROGATIVE|SENTENCE_END|*|(3.4.6)
+REGLA|ozh|POSSESSOR|AFTER_NOUN|*|thüm sha = tu mundo (3.4.7)
+REGLA|ozh|SUBJECT_REQUIRED||si|(3.4.8)
