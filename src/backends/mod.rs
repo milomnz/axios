@@ -4,6 +4,7 @@
 pub mod kethari;
 pub(crate) mod lookup;
 pub mod numbers;
+pub mod ozh;
 
 use numbers::NumberError;
 use std::fmt;

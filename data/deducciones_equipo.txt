@@ -3,3 +3,4 @@
 # DEDUCCION|lengua|regla|posicion|forma|evidencia
 DEDUCCION|kethari|NUMBER_BASE||6|ra-sel = 2·6+3 = 15 (dia 3); ti-vo = 1·6+0 = 6 (dia 7); mok-ra = 4·6+2 = 26 (dia 10)
 DEDUCCION|ozh|NUMBER|BEFORE_NOUN|*|ois-ulo gor (dia 3); sab drüm (dia 7)
+DEDUCCION|ozh|EVIDENTIAL_DEFAULT||tho|decision del equipo: de las tres particulas, tho es la que menos afirma (lo deducimos); ver docs/bitacora.md

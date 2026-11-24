@@ -139,3 +139,33 @@
 **Decisión.** (b), por la regla 3.3.7 (la palabra interrogativa va al principio). Ninguna señal lo confirma; es una aplicación de la regla general.
 
 **Prueba.** `cuantas_naves_pone_el_interrogativo_al_inicio` en `tests/kethari_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Qué partícula evidencial usa el generador de Ozh
+
+**Problema.** Toda oración en Ozh lleva `zi` (lo vimos), `mar` (nos lo dijeron) o `tho` (lo deducimos) después del verbo. El español de los funcionarios no dice cómo se sabe lo que se pregunta, y el manual admite que no se sabe a qué se refiere la partícula en las preguntas (3.5). En las señales se reparten así: `zi` en los días 1, 4 y 8; `mar` en 5, 6 y 7; `tho` en 2, 3, 9 y 10, sin un patrón que permita predecir cuál va.
+
+**Opciones.** (a) `zi`, que afirma haber visto. (b) `mar`, que afirma que otros lo dijeron. (c) `tho`, que solo dice que se dedujo. (d) Elegir por el tiempo o el sujeto, imitando las señales.
+
+**Decisión.** (c) como valor por defecto, guardado en la base como `EVIDENTIAL_DEFAULT` y no en el código. Es la que menos afirma sobre lo que sabemos, y el director de Axios advirtió que una palabra equivocada puede sonar a amenaza. (d) se descartó porque los datos no sostienen una regla. `generate_with` permite elegir otra de las tres; cualquier partícula fuera del manual se rechaza.
+
+**Prueba.** `la_particula_por_defecto_sale_de_la_base` y `una_particula_fuera_del_manual_se_rechaza` en `tests/ozh_tests.rs`. Los demás casos fijan la partícula de cada señal con `generate_with` para comprobar el resto de la gramática.
+
+## 2026-11-23 · Integrante 4 · Pasado sin `ʔoka` en la señal del día 4
+
+**Problema.** La señal del día 4 en Ozh, `ne ʔim zi ʔenka gor` ("No vimos ninguna nave"), está en pasado en español pero no lleva `ʔoka`, y el manual (3.4.3) dice que el pasado se marca con `ʔoka` al inicio. Las otras señales en pasado (días 1 y 8) sí lo llevan.
+
+**Opciones.** (a) Seguir la señal y omitir `ʔoka` si hay negación. (b) Seguir la regla del manual y poner siempre `ʔoka` en pasado.
+
+**Decisión.** (b). Una sola señal no basta para crear una excepción, y el decodificador "todavía se está calibrando". El generador produce `ʔoka ne ʔim zi ʔenka gor`; el validador de Ozh debe aceptar ambas formas al leer señales ajenas.
+
+**Prueba.** `dia_4_en_pasado_el_manual_pide_oka_aunque_la_senal_no_lo_traiga` en `tests/ozh_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Orden de cantidad, sustantivo y poseedor en Ozh
+
+**Problema.** Ozh pone el número delante del sustantivo y el poseedor detrás, y el manual no dice cómo se combinan.
+
+**Opciones.** (a) Número, sustantivo, poseedor. (b) Sustantivo, poseedor, número.
+
+**Decisión.** (a), porque respeta las dos reglas sin mover ninguna. Ninguna señal trae ambos a la vez; queda como supuesto.
+
+**Prueba.** `dia_8_visitaron_nuestro_mundo_pone_el_poseedor_detras` cubre el poseedor; el orden con ambos no tiene señal que lo confirme.

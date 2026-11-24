@@ -26,3 +26,11 @@ pub fn rule_form(conn: &Connection, language: Language, rule: &str) -> rusqlite:
     )
     .optional()
 }
+
+/// Todas las formas de una regla que puede repetirse, como las tres partículas
+/// evidenciales de Ozh, en el orden en que se cargaron.
+pub fn rule_forms(conn: &Connection, language: Language, rule: &str) -> rusqlite::Result<Vec<String>> {
+    let mut stmt = conn.prepare("SELECT form FROM grammar_rules WHERE language = ?1 AND rule = ?2 ORDER BY id")?;
+    let forms = stmt.query_map(params![language.db_name(), rule], |r| r.get(0))?.collect();
+    forms
+}
