@@ -6,7 +6,12 @@ pub(crate) mod lookup;
 pub mod numbers;
 pub mod ozh;
 
+use crate::Stage;
+use crate::db::LanguageRecord;
+use crate::ir::Ir;
+use crate::validation::{self, ValidationError};
 use numbers::NumberError;
+use rusqlite::Connection;
 use std::fmt;
 
 /// Lenguas alienígenas a las que se traduce.
@@ -72,5 +77,63 @@ impl From<rusqlite::Error> for GenError {
 impl From<NumberError> for GenError {
     fn from(e: NumberError) -> Self {
         GenError::Number(e)
+    }
+}
+
+/// Lo que sale de traducir un árbol: el resultado de cada lengua y las fases
+/// recorridas, listas para el modo traza.
+#[derive(Debug, Clone, Default)]
+pub struct IrTranslation {
+    pub kethari: LanguageRecord,
+    pub ozh: LanguageRecord,
+    pub trace: Vec<Stage>,
+}
+
+/// Traduce el árbol a las dos lenguas y pasa cada salida por su validador.
+/// Una lengua que falla no impide la otra: cada una lleva su propio resultado,
+/// con el motivo cuando no hay traducción o el validador la rechaza.
+pub fn translate_ir(conn: &Connection, ir: &Ir) -> IrTranslation {
+    let mut trace = Vec::new();
+    let kethari = finish_language(
+        "Kethari",
+        kethari::generate(conn, ir),
+        |text| validation::kethari::validate(conn, text).map(|_| ()),
+        &mut trace,
+    );
+    let ozh = finish_language(
+        "Ozh",
+        ozh::generate(conn, ir),
+        |text| validation::ozh::validate(conn, text).map(|_| ()),
+        &mut trace,
+    );
+    IrTranslation { kethari, ozh, trace }
+}
+
+/// Une generación y validación de una lengua en un solo resultado y anota las
+/// dos fases en la traza.
+fn finish_language(
+    name: &str,
+    generated: Result<String, GenError>,
+    validate: impl Fn(&str) -> Result<(), ValidationError>,
+    trace: &mut Vec<Stage>,
+) -> LanguageRecord {
+    match generated {
+        Err(e) => {
+            trace.push(Stage { name: format!("Generador {name}"), output: format!("sin traducción: {e}") });
+            LanguageRecord { output: None, valid: false, error: Some(e.to_string()) }
+        }
+        Ok(text) => {
+            trace.push(Stage { name: format!("Generador {name}"), output: text.clone() });
+            match validate(&text) {
+                Ok(()) => {
+                    trace.push(Stage { name: format!("Validador {name}"), output: "valida".to_string() });
+                    LanguageRecord { output: Some(text), valid: true, error: None }
+                }
+                Err(e) => {
+                    trace.push(Stage { name: format!("Validador {name}"), output: format!("rechazada: {e}") });
+                    LanguageRecord { output: Some(text), valid: false, error: Some(e.to_string()) }
+                }
+            }
+        }
     }
 }

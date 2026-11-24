@@ -209,3 +209,13 @@
 **Decisión.** (b). El validador sigue aceptando la frase si alguna lectura es válida. `Reading.ir` trae la preferida (la que separa sujeto y objeto) y `Reading.alternatives` las demás. Así no se descarta una lectura que podría ser la correcta, y quien use el árbol decide. En las pruebas de pares, el árbol original debe estar entre las lecturas.
 
 **Prueba.** `los_validadores_recuperan_el_arbol_de_cada_par_entre_sus_lecturas` en `tests/pares_tests.rs` y `una_frase_ambigua_devuelve_las_dos_lecturas` en `tests/reverse_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Sustantivo seguido de pronombre en Ozh
+
+**Problema.** En Ozh el poseedor va detrás de lo poseído, así que `thüm ʔenka` es "nuestro mundo". Pero un sustantivo sujeto seguido de un pronombre objeto tendría la misma forma.
+
+**Opciones.** (a) Leerlo siempre como poseedor. (b) Intentar las dos lecturas.
+
+**Decisión.** (a). Con el orden verbo, sujeto, objeto, las dos lecturas son frases válidas, y el validador solo debe decidir si la frase es válida, no cuál de ellas fue la intención. Si se hace la traducción de regreso al español (bonus), esta ambigüedad habrá que resolverla ahí.
+
+**Prueba.** `dia_8_visitaron_nuestro_mundo_pone_el_poseedor_detras` y `acepta_todas_las_senales_registradas_de_ozh`.
