@@ -219,3 +219,13 @@
 **Decisión.** (a). Con el orden verbo, sujeto, objeto, las dos lecturas son frases válidas, y el validador solo debe decidir si la frase es válida, no cuál de ellas fue la intención. Si se hace la traducción de regreso al español (bonus), esta ambigüedad habrá que resolverla ahí.
 
 **Prueba.** `dia_8_visitaron_nuestro_mundo_pone_el_poseedor_detras` y `acepta_todas_las_senales_registradas_de_ozh`.
+
+## 2026-11-24 · Integrante 4 · Alcance de la traducción de regreso al español
+
+**Problema.** El bonus pide traducir de Kethari y Ozh al español. El español de la base va sin tildes (decisión del Integrante 1), y ninguna de las dos lenguas tiene artículos, generó ni, en Ozh, plural.
+
+**Opciones.** (a) Agregar reglas de acentuación, artículos y concordancia en el código. (b) Escribir el español que la base respalda: palabras de la base, desinencias y formas irregulares de las tablas, números en cifras, poseedor como "de nosotros" y "a" delante de un pronombre objeto.
+
+**Decisión.** (b). La condición 3 de Axios es no inventar y las reglas del español viven en la base; agregar artículos o tildes por código sería escribir reglas fuera de ella. El resultado es español comprensible pero sin pulir ("¿Quien envio mensaje?").
+
+**Prueba.** `tests/reverse_tests.rs`.

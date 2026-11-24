@@ -3,6 +3,7 @@ pub mod backends;
 pub mod db;
 pub mod error;
 pub mod ir;
+pub mod reverse;
 pub mod validation;
 
 use db::{LanguageRecord, QuestionRecord};
