@@ -79,3 +79,23 @@
 **Decision.** (b). La base y la salida del normalizador usan la misma forma, asi el corrector y la morfologia comparan directamente. Se pierde la diferencia entre "tu" pronombre y "tu" posesivo, "el" pronombre y "el" articulo, y "que" interrogativo y "que" conjuncion; esa diferencia la resuelve el analizador sintactico por la posicion en la oracion. La ñ se conserva, porque el enunciado la trata aparte de las tildes ("sin tildes, sin ñ") y "año" no es "ano". Las palabras de Kethari y Ozh no se tocan (ʔ y ü son parte de la transcripcion), ni los archivos de senales, que se cargan tal como los entrega Axios.
 
 **Prueba.** `el_manual_queda_en_la_base` en `tests/db_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Forma del árbol de representación intermedia
+
+**Problema.** Los generadores necesitan el árbol del Integrante 3, que aún no existe. Esperar al parser bloquea el desarrollo de Kethari y Ozh.
+
+**Opciones.** (a) Esperar a que el parser entregue su árbol. (b) Definir una versión inicial del árbol como contrato, desarrollar los generadores contra ella y dejar al Integrante 3 completarla.
+
+**Decisión.** (b). El árbol nombra todo con `semantic_key` de la tabla `concepts`, para no depender de ninguna lengua, y separa el interrogativo que es argumento (`Argument::Wh`) del que no lo es (`adjunct`). Lo pendiente queda en `docs/arbol_ir.md`.
+
+**Prueba.** Pruebas del módulo `ir` en `src/ir/mod.rs`.
+
+## 2026-11-23 · Integrante 4 · Plural en el árbol
+
+**Problema.** Kethari marca plural con `-esh` aunque haya número ("quince naves" -> `kumesh`). Ozh no marca plural nunca. El analizador podría marcar el plural gramatical o no.
+
+**Opciones.** (a) Confiar solo en el campo `plural` del parser. (b) Que el generador también considere plural toda cantidad mayor que uno.
+
+**Decisión.** (b), con `NounPhrase::is_plural()`. Así un parser que olvide marcar el plural no produce `kum` en lugar de `kumesh` en Kethari.
+
+**Prueba.** `la_cantidad_mayor_que_uno_hace_plural` en `src/ir/mod.rs`.
