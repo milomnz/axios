@@ -1,4 +1,5 @@
 pub mod cli;
+pub mod backends;
 pub mod db;
 pub mod error;
 pub mod ir;

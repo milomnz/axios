@@ -99,3 +99,13 @@
 **Decisión.** (b), con `NounPhrase::is_plural()`. Así un parser que olvide marcar el plural no produce `kum` en lugar de `kumesh` en Kethari.
 
 **Prueba.** `la_cantidad_mayor_que_uno_hace_plural` en `src/ir/mod.rs`.
+
+## 2026-11-23 · Integrante 4 · De dónde sale la base numérica al generar números
+
+**Problema.** Kethari cuenta en base 6 y Ozh en base 10. El generador necesita saber cual usar, que separador y como se llama cada cifra.
+
+**Opciones.** (a) Dejar 6 y 10 como constantes en el generador. (b) Leer base, separador y cifras de la base de datos.
+
+**Decisión.** (b). El enunciado prohibe escribir reglas dentro del código, y así una corrección futura del manual se aplica con `cargar` sin recompilar. Si falta una regla o una cifra, el generador devuelve un error en lugar de suponer un valor. El cero se escribe como una sola cifra (`vo`, `zu`) y el máximo es 9.999.
+
+**Prueba.** `kethari_usa_base_6_como_en_las_senales`, `ozh_usa_base_10_como_en_las_senales` y `sin_reglas_en_la_base_no_se_inventa_nada` en `tests/numbers_tests.rs`.
