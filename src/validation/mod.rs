@@ -5,6 +5,7 @@
 //! la frase no es válida (palabra que el manual no respalda, orden incorrecto,
 //! partícula que falta), no sale.
 
+pub mod kethari;
 mod vocabulary;
 
 use crate::ir::{Argument, Ir, NounPhrase, Quantity, SemanticQuestion, SemanticSentence};

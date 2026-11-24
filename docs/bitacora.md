@@ -169,3 +169,33 @@
 **Decisión.** (a), porque respeta las dos reglas sin mover ninguna. Ninguna señal trae ambos a la vez; queda como supuesto.
 
 **Prueba.** `dia_8_visitaron_nuestro_mundo_pone_el_poseedor_detras` cubre el poseedor; el orden con ambos no tiene señal que lo confirme.
+
+## 2026-11-23 · Integrante 4 · Cómo lee el validador lo que generó el generador
+
+**Problema.** El enunciado pide que el validador sea un analizador independiente y que rechace frases inválidas. Si usará el código de los generadores, un error de los generadores pasaría como válido.
+
+**Opciones.** (a) Comparar la frase con la que produciría el generador. (b) Un lexer y un parser propios por lengua, que solo comparten con los generadores la lectura de la base.
+
+**Decisión.** (b). El lexer de cada lengua reconoce palabras completas contra el vocabulario vigente y solo parte los afijos que la gramática define (`nu-`, `-ok`, `-ime`, `-esh` en Kethari; `ʔa-` en Ozh). Las palabras no se parten buscando otras dentro, así que `ʔenka` en Ozh no se lee como `ʔen` más `ka`. El parser comprueba la forma de la frase según la gramática documentada al inicio de `src/validation/kethari.rs` y `src/validation/ozh.rs`. Todo lo que no reconoce se rechaza con la posición del problema.
+
+**Prueba.** `acepta_todas_las_senales_registradas_de_kethari`, `acepta_todas_las_senales_registradas_de_ozh` y `lee_lo_que_generan_los_generadores` en `tests/validation_tests.rs`; el resto son casos que deben rechazarse.
+
+## 2026-11-23 · Integrante 4 · Qué acepta el validador que el generador no produce
+
+**Problema.** Las señales reales no siempre siguen al pie de la letra las reglas del manual (el día 4 de Ozh no trae `ʔoka`; `anul` y `anir` se alternan). Un validador demasiado estricto rechazaría lo que las propias voces dijeron.
+
+**Opciones.** (a) Validar exactamente lo que el generador produce. (b) Aceptar todo lo que la gramática permite y las señales muestran.
+
+**Decisión.** (b). El validador acepta `ʔoka` ausente, las dos formas de "nosotros" y las tres partículas evidenciales, y las 20 señales con transcripción pasan. Rechaza lo que el manual no respalda: palabras desconocidas, orden incorrecto, `ka` fuera de lugar, partícula evidencial ausente, números mayores que uno con sustantivo singular y cifras mal formadas.
+
+**Prueba.** Las dos pruebas que recorren los archivos de señales, y las de rechazo en `tests/validation_tests.rs`.
+
+## 2026-11-24 · Integrante 4 · Cómo se reúnen generador y validador
+
+**Problema.** La orden `traducir` necesita, para cada lengua, la traducción, el resultado del validador y el motivo cuando algo falla. Si las dos lenguas se tratan juntas, un error en una impediría transmitir la otra.
+
+**Opciones.** (a) Fallar toda la pregunta si una lengua falla. (b) Cada lengua con su propio resultado.
+
+**Decisión.** (b), con `translate_ir` en `src/backends/mod.rs`. Una salida que el validador rechaza se conserva con su motivo pero se marca como no válida, para que no se transmita y quede auditable en el historial. La traza anota generador y validador de cada lengua. La condición 1 de Axios se cumple igual: siempre hay respuesta, con la traducción o con una explicación.
+
+**Prueba.** `una_lengua_sin_palabra_no_bloquea_a_la_otra_y_explica_el_motivo` y `la_traza_anota_generador_y_validador_de_cada_lengua` en `tests/pares_tests.rs`.
