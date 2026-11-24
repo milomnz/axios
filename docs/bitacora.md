@@ -109,3 +109,33 @@
 **Decisión.** (b). El enunciado prohibe escribir reglas dentro del código, y así una corrección futura del manual se aplica con `cargar` sin recompilar. Si falta una regla o una cifra, el generador devuelve un error en lugar de suponer un valor. El cero se escribe como una sola cifra (`vo`, `zu`) y el máximo es 9.999.
 
 **Prueba.** `kethari_usa_base_6_como_en_las_senales`, `ozh_usa_base_10_como_en_las_senales` y `sin_reglas_en_la_base_no_se_inventa_nada` en `tests/numbers_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Cuál forma de "nosotros" usa el generador de Kethari
+
+**Problema.** El manual da `anul` y `anir` para "nosotros" y lingüistica no cree que sean sinónimos. En las señales, `anir` aparece en oraciones en pasado (días 1, 4 y 10) y `anul` en presente y futuro (días 2 y 7), pero son cinco casos y no hay una regla explícita.
+
+**Opciones.** (a) Elegir según el tiempo verbal, imitando las señales. (b) Usar siempre la primera forma cargada.
+
+**Decisión.** (b). Cinco observaciones no demuestran una regla, y una regla de ese tipo en el código sería inventar lo que el manual no dice. Las dos formas están respaldadas por señales, así que la que sale es válida; el validador de Kethari debe aceptar ambas. Si Axios aclara la diferencia, se cambia en la base.
+
+**Prueba.** `dia_1_enviamos_mensajes_usa_anul_aunque_la_senal_diga_anir` y `dia_4_no_los_vimos_a_ustedes_lleva_nu_antes_del_verbo_y_ok_despues` en `tests/kethari_tests.rs`.
+
+## 2026-11-23 · Integrante 4 · Orden de poseedor y cantidad en Kethari
+
+**Problema.** El manual dice que el poseedor va delante de lo poseído y que los números van delante del sustantivo, pero no dice que va primero cuando hay ambos ("sus quince naves").
+
+**Opciones.** (a) Poseedor, número, sustantivo. (b) Número, poseedor, sustantivo.
+
+**Decisión.** (a), porque el poseedor se refiere al grupo completo y no al sustantivo solo. Ninguna señal registrada trae los dos a la vez, así que queda como supuesto a corregir si Axios publica un ejemplo.
+
+**Prueba.** `el_poseedor_va_delante_de_lo_poseido` en `tests/kethari_tests.rs` cubre el poseedor solo.
+
+## 2026-11-23 · Integrante 4 · Interrogativo de cantidad ("cuántos")
+
+**Problema.** En "cuántas naves llegaron", la cantidad es lo que se pregunta. El árbol no trae un número y la palabra interrogativa debe ocupar su posición de interrogativo.
+
+**Opciones.** (a) Dejar `cuantos` junto al sustantivo. (b) Tratarlo como cualquier otro interrogativo: sale al inicio en Kethari y al final en Ozh.
+
+**Decisión.** (b), por la regla 3.3.7 (la palabra interrogativa va al principio). Ninguna señal lo confirma; es una aplicación de la regla general.
+
+**Prueba.** `cuantas_naves_pone_el_interrogativo_al_inicio` en `tests/kethari_tests.rs`.

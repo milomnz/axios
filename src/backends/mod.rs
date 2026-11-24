@@ -1,6 +1,7 @@
 //! Generadores de Kethari y Ozh: reciben el árbol de la pregunta y escriben la
 //! traducción usando solo lo que hay en la base de datos.
 
+pub mod kethari;
 pub(crate) mod lookup;
 pub mod numbers;
 
