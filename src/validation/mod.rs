@@ -6,6 +6,7 @@
 //! partícula que falta), no sale.
 
 pub mod kethari;
+pub mod ozh;
 mod vocabulary;
 
 use crate::ir::{Argument, Ir, NounPhrase, Quantity, SemanticQuestion, SemanticSentence};

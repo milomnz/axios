@@ -199,3 +199,13 @@
 **Decisión.** (b), con `translate_ir` en `src/backends/mod.rs`. Una salida que el validador rechaza se conserva con su motivo pero se marca como no válida, para que no se transmita y quede auditable en el historial. La traza anota generador y validador de cada lengua. La condición 1 de Axios se cumple igual: siempre hay respuesta, con la traducción o con una explicación.
 
 **Prueba.** `una_lengua_sin_palabra_no_bloquea_a_la_otra_y_explica_el_motivo` y `la_traza_anota_generador_y_validador_de_cada_lengua` en `tests/pares_tests.rs`.
+
+## 2026-11-24 · Integrante 4 · Frases ambiguas al leer Kethari y Ozh
+
+**Problema.** Al leer una frase, un pronombre pegado a un sustantivo admite dos lecturas. En Kethari, `anul parn` es "nosotros" y "paz" (sujeto y objeto) o "nuestra paz" (poseedor y poseído); en Ozh pasa lo mismo con un pronombre después de un sustantivo. La gramática del manual no lo resuelve y ningún verbo trae marcada su transitividad.
+
+**Opciones.** (a) Elegir una lectura por regla fija. (b) Devolver todas las lecturas válidas, con la preferida primero.
+
+**Decisión.** (b). El validador sigue aceptando la frase si alguna lectura es válida. `Reading.ir` trae la preferida (la que separa sujeto y objeto) y `Reading.alternatives` las demás. Así no se descarta una lectura que podría ser la correcta, y quien use el árbol decide. En las pruebas de pares, el árbol original debe estar entre las lecturas.
+
+**Prueba.** `los_validadores_recuperan_el_arbol_de_cada_par_entre_sus_lecturas` en `tests/pares_tests.rs` y `una_frase_ambigua_devuelve_las_dos_lecturas` en `tests/reverse_tests.rs`.
